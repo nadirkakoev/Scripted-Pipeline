@@ -1,18 +1,18 @@
-properties([parameters([string(defaultValue: '', 
-description: 'Please Inter VM IP!!!', 
-name: 'Node-IP', trim: true)])])
+properties([
+    parameters([
+        string(defaultValue: '', description: 'Please Inter VM IP!!!',  name: 'nodeIP', trim: true)
+        ])
+    ])
 node {
-    withCredentials([sshUserPrivateKey(credentialsId: 'f4a82031-e1d8-475f-8019-95e76f844d28', 
-    keyFileVariable: 'sshkey', passphraseVariable: '',
-    usernameVariable: 'sshusername')]) {
+    withCredentials([sshUserPrivateKey(credentialsId: 'f4a82031-e1d8-475f-8019-95e76f844d28',  keyFileVariable: 'sshkey', passphraseVariable: '', usernameVariable: 'sshusername')]) {
         stage('Init') {
-            sh ' ssh -o StrictHostKeyChecking=no -i $sshkey   $sshusername@157.245.89.156 yum install epel-release  -y'
+            sh ' ssh -o StrictHostKeyChecking=no -i $sshkey  $sshusername@${nodeIP} yum install epel-release  -y'
         }
         stage('Install git') {
-            sh ' ssh -o StrictHostKeyChecking=no -i $sshkey   $sshusername@157.245.89.156 yum install git  -y'
+            sh ' ssh -o StrictHostKeyChecking=no -i $sshkey  $sshusername@${nodeIP} yum install git  -y'
         }
         stage('Install Java') {
-            sh ' ssh -o StrictHostKeyChecking=no -i $sshkey   $sshusername@157.245.89.156 yum install java-1.8.0-openjdk-devel -y'
+            sh ' ssh -o StrictHostKeyChecking=no -i $sshkey  $sshusername@${nodeIP} yum install java-1.8.0-openjdk-devel -y'
         }
     }
 }
