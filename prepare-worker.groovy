@@ -3,6 +3,14 @@ properties([
         string(defaultValue: '', description: 'Please Inter VM IP!!!',  name: 'nodeIP', trim: true)
         ])
     ])
+
+if (nodeIP?.trim()) {
+    println('Not Empty')
+} 
+else {
+    println('Empty')
+}
+
 node {
     withCredentials([sshUserPrivateKey(credentialsId: 'f4a82031-e1d8-475f-8019-95e76f844d28',  keyFileVariable: 'sshkey', passphraseVariable: '', usernameVariable: 'sshusername')]) {
         stage('Init') {
