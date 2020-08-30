@@ -1,3 +1,6 @@
+properties([parameters([string(defaultValue: '', 
+description: 'Please Inter VM IP!!!', 
+name: 'Node-IP', trim: true)])])
 node {
     withCredentials([sshUserPrivateKey(credentialsId: 'f4a82031-e1d8-475f-8019-95e76f844d28', 
     keyFileVariable: 'sshkey', passphraseVariable: '',
